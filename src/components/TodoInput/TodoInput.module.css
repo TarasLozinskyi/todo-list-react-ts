@@ -1,0 +1,19 @@
+.TodoInput {
+    padding: 20px;
+    width: 100%;
+}
+
+.TodoInput input {
+    padding: 15px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    width: 80%;
+}
+
+.TodoInput button {
+    width: 20%;
+    padding: 15px 10px;
+    border: 1px solid black;
+    background: black;
+    color: white;
+}

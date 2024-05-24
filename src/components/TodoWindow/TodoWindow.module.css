@@ -1,0 +1,22 @@
+.todoWindow{
+    width: 60vw;
+margin-top: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.removeAll{
+
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+.remove{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: red;
+    margin-right: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+
+
+}
