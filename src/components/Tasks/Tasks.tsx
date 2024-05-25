@@ -17,7 +17,6 @@ export const Tasks: FC<ITypeTasks> = ({tasks, setTasks,tabs}) => {
   const hoverLeaveRemove = () => {
 
     const hover = tasks.map((item) => {
-
         return {
           ...item,
           isDelete: false

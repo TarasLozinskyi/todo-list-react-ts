@@ -1,16 +1,21 @@
-.todoWindow{
-    width: 60vw;
-margin-top: 50px;
+.todoWindow {
+    width: 700px;
+    margin-top: 50px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.removeAll{
+
+.removeAll {
 
     width: 100%;
 
     display: flex;
     justify-content: space-between;
 }
-.remove{
+.flex{
+    display: flex;
+}
+
+.remove {
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -19,4 +24,13 @@ margin-top: 50px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 
 
+}
+.restore{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: green;
+    margin-right: 5px;
+
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }

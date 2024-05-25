@@ -8,6 +8,7 @@
     border: 1px solid rgba(0, 0, 0, 0.5);
     outline: none;
     width: 80%;
+    font-size: 16px;
 }
 
 .TodoInput button {
@@ -16,4 +17,5 @@
     border: 1px solid black;
     background: black;
     color: white;
+    font-size: 16px;
 }

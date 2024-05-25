@@ -3,14 +3,14 @@ import styles from './TodoWindow.module.css'
 import {TodoInput} from "../TodoInput/TodoInput";
 import {TabBar} from "../TabBar/TabBar";
 import {Tasks} from "../Tasks/Tasks";
-import { ITaskModel} from "../../models/ITaskModel";
+import {ITaskModel, taskItems} from "../../models/ITaskModel";
 import {ITabModel, tabItems,} from "../../models/ITabModel";
 
 
 export const TodoWindow = () => {
-  const [tasks, setTasks] = useState<ITaskModel[]>([]);
+  const [tasks, setTasks] = useState<ITaskModel[]>(taskItems);
   const [tabs, setTabs] = useState<ITabModel[]>(tabItems);
-
+  const [restore, setRestore] = useState<ITaskModel[]>([])
 
   const valueInput = (valueTask:string,  setValueTask:React.Dispatch<React.SetStateAction<string>>)=>{
     if(valueTask!==''){
@@ -34,19 +34,24 @@ export const TodoWindow = () => {
         isDelete:false,
         isActive:false,
       }])
-      console.log(tasks)
 
 
       setValueTask('');
     }
   }
   const removeAll= () =>{
+    setRestore([...tasks]);
     setTasks([]);
   }
-
-
-
-
+  const restoreAll =()=>{
+    if(tasks.length===0){
+      setTasks([...restore])
+      setRestore([]);
+    }else {
+      setTasks([...tasks, ...restore]);
+      setRestore([]);
+    }
+  }
 
   return (
     <div className={styles.todoWindow}>
@@ -57,9 +62,14 @@ export const TodoWindow = () => {
         <div>
 
         </div>
+        <div  className={styles.flex}>
+          <div className={styles.restore} onClick={restoreAll}>
+
+          </div>
           <div className={styles.remove} onClick={removeAll}>
 
           </div>
+        </div>
       </div>
       <Tasks setTasks={setTasks} tasks={tasks} tabs={tabs}   />
     </div>

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {ITaskModel} from "../../models/ITaskModel";
 import styles from './Task.module.css'
 
@@ -9,8 +9,8 @@ type ITypeTask =
   & { setTasks: React.Dispatch<React.SetStateAction<ITaskModel[]>> }
   & { index: number }
 
-export const Task: FC<ITypeTask> = ({id, text, isDelete, isActive, tasks, setTasks, index,}) => {
-
+export const Task: FC<ITypeTask> = ({id,isEdit, text, isDelete, isActive, tasks, setTasks, index,}) => {
+  const [edit, setEdit] = useState<string>('')
   const hoverEnterRemove = () => {
 
     const hover = tasks.map((item) => {
@@ -30,10 +30,6 @@ export const Task: FC<ITypeTask> = ({id, text, isDelete, isActive, tasks, setTas
 
     setTasks(hover);
   }
-
-  // const notHover =()=>{
-  //
-  // }
   const removeTask = ()=>{
     setTasks([...tasks.slice(0,index),...tasks.slice(index+1, tasks.length)])
   }
@@ -51,11 +47,64 @@ export const Task: FC<ITypeTask> = ({id, text, isDelete, isActive, tasks, setTas
     })
     setTasks(active);
   }
+  const editTask =()=>{
+    const editValue  = tasks.map(item=>{
+      if(id === item.id){
+
+     setEdit(item.text)
+        return{
+          ...item,
+          text:isEdit?edit:text,
+          isEdit:!item.isEdit
+        }
+      }
+        return {
+          ...item,
+          isEdit: false
+
+        }
+
+    })
+
+    setTasks(editValue);
+
+  }
+
+
+  const changeInput =(e: React.ChangeEvent<HTMLInputElement>)=>{
+    setEdit(e.target.value)
+  }
+  const enterInput=(e: React.KeyboardEvent<HTMLInputElement>)=>{
+    if(e.key === 'Enter'){
+      const editValue  = tasks.map(item=>{
+        if(id === item.id){
+
+          setEdit(item.text)
+          return{
+            ...item,
+            text:isEdit?edit:text,
+            isEdit:!item.isEdit
+          }
+        }
+        return {
+          ...item,
+          isEdit: false
+
+        }
+
+      })
+
+      setTasks(editValue);
+
+    }
+
+  }
 
 
 
   return (
-    <div className={styles.task} onMouseEnter={hoverEnterRemove}>
+
+    <div className={styles.task} onMouseEnter={hoverEnterRemove} >
       <div className={styles.taskOneBlock}>
         <div className={styles.active} onClick={iconActiveChange}>
           {isActive ? <svg xmlns="http://www.w3.org/2000/svg"
@@ -69,12 +118,12 @@ export const Task: FC<ITypeTask> = ({id, text, isDelete, isActive, tasks, setTas
                 d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/>
             </svg>}
         </div>
-        <div className={isActive?styles.taskTitleThrough:styles.taskTitle}>
-          {text}
+        <div className={isActive?styles.taskTitleThrough:styles.taskTitle} onClick={editTask}>
+          {isEdit? <input className={styles.inputText} type="text" autoFocus={true} value={edit} onChange={changeInput} onKeyDown={enterInput}/>:<div>{text}</div>}
         </div>
       </div>
       <div className={isDelete ? styles.remove : styles.removeNone} onClick={removeTask}>
-        ✗
+        x
       </div>
     </div>
   );
